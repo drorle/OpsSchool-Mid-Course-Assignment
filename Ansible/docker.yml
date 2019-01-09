@@ -1,0 +1,29 @@
+---
+- hosts: all
+  remote_user: ubuntu
+  become: yes
+  tasks:
+  - name:    Install prerequisites
+    apt:     name={{item}} update_cache=yes
+    with_items:
+     - apt-transport-https
+     - ca-certificates
+     - curl
+     - software-properties-common
+  - name:    Add Docker GPG key
+    apt_key: url=https://download.docker.com/linux/ubuntu/gpg
+  - name:    Add Docker APT repository
+    apt_repository:
+      repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ansible_distribution_release}} stable
+  - name:    Install Docker
+    apt:     name=docker-ce
+
+  - name:    Run dummy-exporter container
+    shell: sudo docker run -d -p 65433:65433 drorle/opsschool:dummy-exporter >> docker.log
+    #  - name:    Run dummy-exporter container
+    #docker_container:
+    #  name: dummy-exporter
+    #  image: drorle/opsschool
+    #  state: started
+    #  ports:
+        #  - "65433:65433"
