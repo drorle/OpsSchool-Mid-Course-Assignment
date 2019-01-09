@@ -25,6 +25,9 @@ resource "aws_instance" "instance" {
       "sudo apt-get install -y python",
     ]
   }
+  provisioner "local-exec" {
+    command = "ansible-playbook -i '${self.public_ip},' --private-key ${var.private_key_path} docker.yml"
+  }
 }
 
 ##################################################################################
