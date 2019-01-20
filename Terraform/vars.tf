@@ -15,7 +15,11 @@ variable "key_name" {
   default = "terraform-key-pair"
 }
 
-variable "instance_count" {
+variable "docker_instance_count" {
+  default = 1
+}
+
+variable "consul_instance_count" {
   default = 1
 }
 

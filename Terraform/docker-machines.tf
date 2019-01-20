@@ -1,6 +1,6 @@
 # INSTANCES #
-resource "aws_instance" "instance" {
-  count                  = "${var.instance_count}"
+resource "aws_instance" "docker_instance" {
+  count                  = "${var.docker_instance_count}"
   ami                    = "${var.ami}"
   instance_type          = "${var.instance_type}"
   subnet_id              = "${element(aws_subnet.subnet.*.id,count.index % var.subnet_count)}"
@@ -8,7 +8,7 @@ resource "aws_instance" "instance" {
   key_name               = "${var.key_name}"
 
   tags {
-    Name        = "${var.environment_tag}-nginx-${count.index + 1}"
+    Name        = "${var.environment_tag}-docker-${count.index + 1}"
     Environment = "${var.environment_tag}"
   }
 
@@ -34,8 +34,8 @@ resource "aws_instance" "instance" {
 # OUTPUT
 ##################################################################################
 
-output "aws_instance_public_dns" {
-  value = "${aws_instance.instance.*.public_ip}"
+output "aws_docker_instance_public_dns" {
+  value = "${aws_instance.docker_instance.*.public_ip}"
 }
 
 
