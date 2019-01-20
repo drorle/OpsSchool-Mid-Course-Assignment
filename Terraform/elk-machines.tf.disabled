@@ -1,14 +1,14 @@
 # INSTANCES #
-resource "aws_instance" "consul_instance" {
-  count                  = "${var.consul_instance_count}"
+resource "aws_instance" "elk_instance" {
+  count                  = "${var.elk_instance_count}"
   ami                    = "${var.ami}"
-  instance_type          = "${var.instance_type}"
+  instance_type          = "${var.elk_instance_type}"
   subnet_id              = "${element(aws_subnet.subnet.*.id,count.index % var.subnet_count)}"
-  vpc_security_group_ids = ["${aws_security_group.ssh.id}","${aws_security_group.consul.id}","${aws_security_group.outbound.id}"]
+  vpc_security_group_ids = ["${aws_security_group.ssh.id}","${aws_security_group.outbound.id}"]
   key_name               = "${var.key_name}"
 
   tags {
-    Name        = "${var.environment_tag}-consul-${count.index + 1}"
+    Name        = "${var.environment_tag}-elk-${count.index + 1}"
     Environment = "${var.environment_tag}"
   }
 
@@ -26,7 +26,7 @@ resource "aws_instance" "consul_instance" {
     ]
   }
   provisioner "local-exec" {
-    command = "ansible-playbook -i '${self.public_ip},' --private-key ${var.private_key_path} consul.yml"
+    command = "ansible-playbook -i '${self.public_ip},' --private-key ${var.private_key_path} elk.yml"
   }
 }
 
@@ -34,8 +34,8 @@ resource "aws_instance" "consul_instance" {
 # OUTPUT
 ##################################################################################
 
-output "aws_consul_instance_public_dns" {
-  value = "${aws_instance.consul_instance.*.public_ip}"
+output "aws_elk_instance_public_dns" {
+  value = "${aws_instance.elk_instance.*.public_ip}"
 }
 
 

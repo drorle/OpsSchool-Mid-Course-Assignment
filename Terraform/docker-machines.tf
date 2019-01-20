@@ -4,7 +4,7 @@ resource "aws_instance" "docker_instance" {
   ami                    = "${var.ami}"
   instance_type          = "${var.instance_type}"
   subnet_id              = "${element(aws_subnet.subnet.*.id,count.index % var.subnet_count)}"
-  vpc_security_group_ids = ["${aws_security_group.ssh.id}","${aws_security_group.http.id}"]
+  vpc_security_group_ids = ["${aws_security_group.ssh.id}","${aws_security_group.outbound.id}"]
   key_name               = "${var.key_name}"
 
   tags {
