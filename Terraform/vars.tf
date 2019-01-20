@@ -2,14 +2,6 @@
 # VARIABLES
 ##################################################################################
 
-#variable "aws_access_key" {}
-#variable "aws_secret_key" {}
-#variable "public_key" {}
-variable "private_key_path" {
-  description = "Path to the AWS private key (.pem file), to be used by Ansible"
-  default = "~/.ssh/id_rsa"
-}
-
 variable "aws_region" {
   description = "Default aws region where all resources will get created"
   default = "us-east-2"
@@ -23,6 +15,11 @@ variable "environment_tag" {
 variable "key_name" {
   description = "The name of the key pair to be created"
   default = "dror-key-pair"
+}
+
+variable "private_key_path" {
+  description = "Path to the private key that is part of the AWS key pair, to be used by Ansible"
+  default = "~/.ssh/id_rsa"
 }
 
 variable "docker_instance_count" {
