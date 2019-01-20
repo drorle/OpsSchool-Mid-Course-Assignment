@@ -7,35 +7,53 @@
 variable "private_key_path" {}
 variable "public_key" {}
 
+variable "aws_region" {
+  description = "Default aws region where all resources will get created"
+  default = "us-east-2"
+}
+
 variable "environment_tag" {
-  default = "tf"
+  description = "Tag to be added to all resources created using Terraform"
+  default = "tf-opsschool-midterm"
 }
 
 variable "key_name" {
+  description = "The name of the key pair to be created"
   default = "terraform-key-pair"
 }
 
 variable "docker_instance_count" {
+  description = "Number of instances to be used as docker machines"
   default = 1
 }
 
 variable "consul_instance_count" {
+  description = "Number of Consul servers"
   default = 1
 }
 
 variable "subnet_count" {
+  description = "Number of subnets to be created"
   default = 1
 }
 
 variable "network_address_space" {
+  description = "Network address space"
   default = "10.1.0.0/16"
 }
 
 variable "ami" {
-  default = "ami-076e276d85f524150" # Ubuntu 16.04 in us-west-2
+  description = "Ubuntu 16.02 ami"
+  default = "ami-0653e888ec96eab9b" # Ubuntu 16.04 in us-east-2
+  # default = "ami-076e276d85f524150" # Ubuntu 16.04 in us-west-2
 }
 
 variable "instance_type" {
+  description = "Instance type for all small machines, part of the AWS free tier"
   default = "t2.micro"
 }
 
+variable "consul_version" {
+  description = "The version of Consul to install (server and client)."
+  default     = "1.4.0"
+}
