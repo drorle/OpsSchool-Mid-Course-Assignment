@@ -4,8 +4,11 @@
 
 #variable "aws_access_key" {}
 #variable "aws_secret_key" {}
-variable "private_key_path" {}
-variable "public_key" {}
+#variable "public_key" {}
+variable "private_key_path" {
+  description = "Path to the AWS private key (.pem file), to be used by Ansible"
+  default = "~/.ssh/id_rsa"
+}
 
 variable "aws_region" {
   description = "Default aws region where all resources will get created"
@@ -19,7 +22,7 @@ variable "environment_tag" {
 
 variable "key_name" {
   description = "The name of the key pair to be created"
-  default = "terraform-key-pair"
+  default = "dror-key-pair"
 }
 
 variable "docker_instance_count" {
@@ -51,6 +54,17 @@ variable "ami" {
 variable "instance_type" {
   description = "Instance type for all small machines, part of the AWS free tier"
   default = "t2.micro"
+}
+
+# ELK Instance
+variable "elk_instance_type" {
+  description = "Instance type for the elk machine, which needs to be larger than t2.micro"
+  default = "t3.medium"
+}
+
+variable "elk_instance_count" {
+  description = "Number of instances to be used for elk"
+  default = 1
 }
 
 variable "consul_version" {
