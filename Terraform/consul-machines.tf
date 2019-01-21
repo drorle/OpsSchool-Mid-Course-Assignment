@@ -15,7 +15,6 @@ data "template_file" "consul_server" {
   }
 }
 
-
 # INSTANCES #
 resource "aws_instance" "consul_instance" {
   count                  = "${var.consul_server_count}"
