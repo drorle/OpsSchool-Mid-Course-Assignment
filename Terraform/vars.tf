@@ -27,7 +27,7 @@ variable "docker_instance_count" {
   default = 1
 }
 
-variable "consul_instance_count" {
+variable "consul_server_count" {
   description = "Number of Consul servers"
   default = 1
 }
