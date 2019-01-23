@@ -27,6 +27,11 @@ variable "docker_instance_count" {
   default = 1
 }
 
+variable "prometheus_count" {
+  description = "Number of Prometheus servers"
+  default = 1
+}
+
 variable "consul_server_count" {
   description = "Number of Consul servers"
   default = 1

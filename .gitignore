@@ -2,3 +2,4 @@ docker.retry
 hosts
 .terraform/
 terraform.tfstate*
+Old/

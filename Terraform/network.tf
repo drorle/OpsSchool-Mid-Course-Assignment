@@ -92,6 +92,19 @@ resource "aws_security_group" "consul" {
   }
 }
 
+resource "aws_security_group" "prometheus" {
+  name        = "prometheus"
+  vpc_id      = "${aws_vpc.vpc.id}"
+
+  # Allow Prometheus access
+  ingress {
+    from_port   = 9090
+    to_port     = 9090
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}
+
 # Outbound security group
 resource "aws_security_group" "outbound" {
   name        = "outbound"
