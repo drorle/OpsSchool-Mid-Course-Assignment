@@ -8,7 +8,7 @@ data "template_file" "consul_server" {
     config = <<EOF
      "node_name": "${var.environment_tag}-consul-server-${count.index+1}",
      "server": true,
-     "bootstrap_expect": 3,
+     "bootstrap_expect": 1,
      "ui": true,
      "client_addr": "0.0.0.0"
     EOF
